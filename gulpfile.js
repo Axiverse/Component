@@ -29,11 +29,6 @@ const paths = {
 	},
 };
 
-task('watch', () => {
-	watch('./**/*.scss', series('build'));
-	watch(['./**/*.scss', './**/*.pug'], series('docs'));
-});
-
 task('build', () => 
 	src(globs.source)
 		.pipe(sass({outputStyle: 'compact', precision: 10}).on('error', logError))
@@ -68,5 +63,17 @@ task('docs',
 		series('build', 'docs:copy'),
 		'docs:styles',
 		'docs:pages')); 
+
+task('watch:mark', (cb) => {
+	console.log('==========');
+	cb();
+});
+
+task('watch:watch', () => {
+	watch('./**/*.scss', series('build', 'watch:mark'));
+	watch(['./**/*.scss', './**/*.pug'], series('docs', 'watch:mark'));
+});
+
+task('watch', series('docs', 'watch:mark', 'watch:watch'));
 
 task('default', series('build'));

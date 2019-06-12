@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Mark html files as documentation
+**/*.html linguist-documentation

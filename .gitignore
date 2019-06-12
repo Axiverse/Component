@@ -1,1 +1,6 @@
 node_modules/
+.*
+!.csscomb.json
+!.gitignore
+!.gitattributes
+!.scss-lint.yml
